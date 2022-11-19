@@ -47,7 +47,7 @@ def main():
     print()
     
     # Load data datasets from load_data function
-    trainloader, validloader, class_idx_mapping = load_data(data_dir=args.data_dir)
+    trainloader, validloader, testloader, class_idx_mapping = load_data(data_dir=args.data_dir)
     
     # Opening the json file for the names of the flowers
     with open('cat_to_name.json', 'r') as f:
@@ -90,7 +90,7 @@ def main():
         optimizer=optimizer,
         device="cuda")
     
-    _,_,class_t_idx = load_data(args.data_dir)
+    _,_,_,class_t_idx = load_data(args.data_dir)
     print('Saving the best model...')
     save_checkpoint(model, 
                 'model_flower_classifier_vgg13.pt',

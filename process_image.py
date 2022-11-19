@@ -1,3 +1,5 @@
+from torchvision import datasets, transforms, models
+
 import numpy as np
 from PIL import Image
 
@@ -17,7 +19,7 @@ def process_image(image_dir):
             transforms.ToTensor(),
             normalize
         ])
-    loaded_image = Image.open(image)
+    loaded_image = Image.open(image_dir)
     img_tensor = preprocess(loaded_image).float()
     np_image = np.array(img_tensor)
     return np_image

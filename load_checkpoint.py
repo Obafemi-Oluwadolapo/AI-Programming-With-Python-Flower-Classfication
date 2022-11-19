@@ -1,7 +1,12 @@
 import torch
+from torchvision import datasets, transforms, models
+from args_inputs import args_input_predict
+args_predict = args_input_predict()
 
-# TODO: Write a function that loads a checkpoint and rebuilds the model
+# Loads a checkpoint and rebuilds the model
 def load_checkpoint(model_file):
+    #model_file = args_predict.model_file
+    model_input = args_predict.model_input
     checkpoint = torch.load(model_file)
     if model_input == 'vgg13':
         model = models.vgg13(pretrained=True)
@@ -20,6 +25,7 @@ def load_checkpoint(model_file):
 
     elif model_input == 'resnet152':
         model = models.resnet152(pretrained=True)
+
 
     #Freeze parameters to avoid backpropagation
     for param in model.parameters():

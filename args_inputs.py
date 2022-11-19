@@ -29,12 +29,12 @@ def args_input():
                         help='CNN Model Architecture: default = vgg13')
     ##parser.add_argument('--model', type=str, default='vgg13',
                         #help='CNN Model Architecture: default = vgg13')
-    parser.add_argument('--learning_rate', type=int, default=0.01,
+    parser.add_argument('--learning_rate', type=int, default=0.0002,
                         help='Learning rate: default=0.0002')
     parser.add_argument('--epochs', type=int, default=1,
                         help='Number of Epochs for training: default=20')
     parser.add_argument('--hidden_units', type=int, default=4096,
-                        help='Number of hidden layer units needed in the NN model for training: default=512')
+                        help='Number of hidden layer units needed in the NN model for training: default=4096')
     parser.add_argument('--gpu', default=True, action='store_true',
                         help='Define usage of GPU Cuda device: default=True')
     
@@ -51,7 +51,7 @@ def args_input_predict():
     
     parser.add_argument('--image_path', type=str, default='flowers/valid/29/image_04108.jpg',
                         help = 'path to image directory for prediction')
-    parser.add_argument('--model_file', type=str, default='',
+    parser.add_argument('--model_file', type=str, default='model_flower_classifier_vgg13.pt',
                         help = 'path to checkpoint directory for saving model prediction')  
     
     # Optional Arguments
@@ -61,5 +61,7 @@ def args_input_predict():
                         help='Define usage of GPU Cuda device: default=True')
     parser.add_argument('--category_names', type=str, default='cat_to_name.json',
                         help = 'path to checkpoint directory for saving model prediction')
+    parser.add_argument('--model_input', type=str, default='vgg13',
+                        help='CNN Model Architecture: default = vgg13')
     
     return parser.parse_args()

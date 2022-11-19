@@ -23,7 +23,7 @@ from process_image import process_image
 from imshow import imshow
 from predict_flower import predict
 from display_predict  import display_predict
-
+from prettytable import PrettyTable
 
 def main():
     args = args_input()
@@ -40,14 +40,14 @@ def main():
         device = "cpu"
     
     # DEfining the idx_class_mapping from load_data function
-    _, _, idx_class_mapping = load_data(args.data_dir)
-    
+    _, _, _, class_idx_mapping = load_data(args.data_dir)
+    idx_class_mapping = {v: k for k, v in class_idx_mapping.items()} 
     probs, classes = predict(image_path=args_predict.image_path, 
                              model_file=args_predict.model_file, 
                              topk=args_predict.topk, 
-                             device="cpu",
+                             device="cuda",
                              idx_class_mapping=idx_class_mapping)
-    
+    print(classes)
     print('Commencing Prediction...')
     print('...')
     print()
@@ -55,7 +55,7 @@ def main():
     print("Predicting what kind of flower this is...")
     print("...")
     print("...")
-    print('This flower is most likely a {} with a {:.6f} probability!'.format(classes[0], probs[0][0]))
+    print('This flower is most likely a {} with a {:.6f} probability!'.format(classes[0], probs[0]))
     # Opening the json file for the names of the flowers
     with open('cat_to_name.json', 'r') as f:
         cat_to_name = json.load(f)
@@ -64,7 +64,7 @@ def main():
     
     x = PrettyTable()
     x.field_names = ["Class Name", "Probability"]
-    for c,p in zip(class_names, probs[0][0]):
+    for c,p in zip(class_names, probs):
         x.add_row([c, p])
     
     print(x)

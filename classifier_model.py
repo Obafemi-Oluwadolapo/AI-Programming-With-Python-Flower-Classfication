@@ -37,7 +37,7 @@ def classifier_model(model_input, hidden_units, learning_rate, class_idx_mapping
         num_features = 25088
         model.classifier = nn.Sequential(nn.Linear(num_features,hidden_units),
                                             nn.ReLU(),
-                                            nn.Dropout(0.5),
+                                            nn.Dropout(0.2),
                                             nn.Linear(hidden_units,512),
                                             nn.ReLU(),
                                             nn.Linear(512,len(cat_to_name)),
